@@ -39,6 +39,31 @@ function fetch_all_query($db, $sql, $params = array()){
 }
 
 function execute_query($db, $sql, $params = array()){
+      // バインドのデータ型は必須か確認。必要な場合は実装方法検討。
+    // 現状arrayで持ってきたパラメータはすべてSTRっぽい。
+    // foreach($params as $key => $bind) {
+    //   switch(gettype($bind)) {
+    //     case 'boolean':
+    //       $type = PDO::PARAM_BOOL;
+    //       break;
+    //     case 'integer':
+    //       $type = PDO::PARAM_INT;
+    //       break;
+    //     case 'double':
+    //       $type = PDO::PARAM_STR;
+    //       break;
+    //     case 'string':
+    //       $type = PDO::PARAM_STR;
+    //       break;
+    //     case 'NULL':
+    //       $type = PDO::PARAM_NULL;
+    //       break;
+    //     default:
+    //       $type = PDO::PARAM_STR;
+    //   }
+    // }
+    //$statement->bindValue($param_id, $value, $param_type);
+    
   try{
     $statement = $db->prepare($sql);
     return $statement->execute($params);
