@@ -3,37 +3,19 @@ require_once MODEL_PATH . 'functions.php';
 require_once MODEL_PATH . 'db.php';
 
 function get_user($db, $user_id){
-  $sql = "
-    SELECT
-      user_id, 
-      name,
-      password,
-      type
-    FROM
-      users
-    WHERE
-      user_id = {$user_id}
-    LIMIT 1
-  ";
+  $sql = 'SELECT user_id, name, password, type
+          FROM users WHERE user_id=? LIMIT 1';
+  $params = array($user_id);
 
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 function get_user_by_name($db, $name){
-  $sql = "
-    SELECT
-      user_id, 
-      name,
-      password,
-      type
-    FROM
-      users
-    WHERE
-      name = '{$name}'
-    LIMIT 1
-  ";
+  $sql = 'SELECT user_id, name, password, type
+          FROM users WHERE name=? LIMIT 1';
+  $params = array($name);
 
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 function login_as($db, $name, $password){
@@ -101,12 +83,9 @@ function is_valid_password($password, $password_confirmation){
 }
 
 function insert_user($db, $name, $password){
-  $sql = "
-    INSERT INTO
-      users(name, password)
-    VALUES ('{$name}', '{$password}');
-  ";
+  $sql = 'INSERT INTO users SET name=?, password=?';
+  $params = array($name, $password);
 
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 

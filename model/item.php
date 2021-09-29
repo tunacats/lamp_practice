@@ -5,39 +5,18 @@ require_once MODEL_PATH . 'db.php';
 // DB利用
 
 function get_item($db, $item_id){
-  $sql = "
-    SELECT
-      item_id, 
-      name,
-      stock,
-      price,
-      image,
-      status
-    FROM
-      items
-    WHERE
-      item_id = {$item_id}
-  ";
+  $sql = 'SELECT item_id, name, stock, price, image, status
+          FROM items WHERE item_id=?';
+  $params = array($item_id);
 
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 function get_items($db, $is_open = false){
-  $sql = '
-    SELECT
-      item_id, 
-      name,
-      stock,
-      price,
-      image,
-      status
-    FROM
-      items
-  ';
+  $sql = 'SELECT item_id, name, stock, price, image, status FROM items';
+  
   if($is_open === true){
-    $sql .= '
-      WHERE status = 1
-    ';
+    $sql .= ' WHERE status = 1';
   }
 
   return fetch_all_query($db, $sql);
@@ -73,47 +52,24 @@ function regist_item_transaction($db, $name, $price, $stock, $status, $image, $f
 
 function insert_item($db, $name, $price, $stock, $filename, $status){
   $status_value = PERMITTED_ITEM_STATUSES[$status];
-  $sql = "
-    INSERT INTO
-      items(
-        name,
-        price,
-        stock,
-        image,
-        status
-      )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
-  ";
+  $sql = 'INSERT INTO items SET name=?, price=?, stock=?, image=?, status=?';
+  $params = array($name, $price, $stock, $filename, $status_value);
 
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 function update_item_status($db, $item_id, $status){
-  $sql = "
-    UPDATE
-      items
-    SET
-      status = {$status}
-    WHERE
-      item_id = {$item_id}
-    LIMIT 1
-  ";
-  
-  return execute_query($db, $sql);
+  $sql = 'UPDATE items SET status=? WHERE item_id=? LIMIT 1';
+  $params = array($status, $item_id);
+
+  return execute_query($db, $sql, $params);
 }
 
 function update_item_stock($db, $item_id, $stock){
-  $sql = "
-    UPDATE
-      items
-    SET
-      stock = {$stock}
-    WHERE
-      item_id = {$item_id}
-    LIMIT 1
-  ";
-  
-  return execute_query($db, $sql);
+  $sql = 'UPDATE items SET stock=? WHERE item_id=? LIMIT 1';
+  $params = array($stock, $item_id);
+
+  return execute_query($db, $sql, $params);
 }
 
 function destroy_item($db, $item_id){
@@ -132,15 +88,10 @@ function destroy_item($db, $item_id){
 }
 
 function delete_item($db, $item_id){
-  $sql = "
-    DELETE FROM
-      items
-    WHERE
-      item_id = {$item_id}
-    LIMIT 1
-  ";
-  
-  return execute_query($db, $sql);
+  $sql = 'DELETE FROM items WHERE item_id=? LIMIT 1';
+  $params = array($item_id);
+
+  return execute_query($db, $sql, $params);
 }
 
 
