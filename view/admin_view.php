@@ -3,7 +3,7 @@
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
   <title>商品管理</title>
-  <link rel="stylesheet" href="<?= h(STYLESHEET_PATH . 'admin.css'); ?>">
+  <link rel="stylesheet" href="<?= (STYLESHEET_PATH . 'admin.css'); ?>">
 </head>
 <body>
   <?php 
@@ -64,7 +64,7 @@
           <tr class="<?= h(is_open($item) ? '' : 'close_item'); ?>">
             <td><img src="<?= h(IMAGE_PATH . $item['image']);?>" class="item_image"></td>
             <td><?= h($item['name']); ?></td>
-            <td><?= h(number_format($item['price'])); ?>円</td>
+            <td><?= (number_format($item['price'])); ?>円</td>
             <td>
               <form method="post" action="admin_change_stock.php">
                 <div class="form-group">
