@@ -21,10 +21,18 @@ if(is_admin($user) === false){
 $item_id = get_post('item_id');
 $stock = get_post('stock');
 
-if(update_item_stock($db, $item_id, $stock)){
-  set_message('在庫数を変更しました。');
+$postToken = get_post('csrf_token');
+$validResult = is_valid_csrf_token($postToken);
+
+if ($validResult === true) {
+  if(update_item_stock($db, $item_id, $stock)){
+    set_message('在庫数を変更しました。');
+  } else {
+    set_error('在庫数の変更に失敗しました。');
+  }
 } else {
-  set_error('在庫数の変更に失敗しました。');
+  set_error('不正なCSRFトークンまたは、CSRFトークンがありません。');
 }
+
 
 redirect_to(ADMIN_URL);
