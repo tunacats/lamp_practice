@@ -15,7 +15,7 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 $item_id = get_post('item_id');
-$postToken = $_POST['csrf_token'];
+$postToken = get_post('csrf_token');
 
 $validResult = is_valid_csrf_token($postToken);
 

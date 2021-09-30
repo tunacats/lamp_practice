@@ -16,10 +16,17 @@ $user = get_login_user($db);
 
 $cart_id = get_post('cart_id');
 
-if(delete_cart($db, $cart_id)){
-  set_message('カートを削除しました。');
+$postToken = get_post('csrf_token');
+$validResult = is_valid_csrf_token($postToken);
+
+if ($validResult === true) {
+  if(delete_cart($db, $cart_id)){
+    set_message('カートを削除しました。');
+  } else {
+    set_error('カートの削除に失敗しました。');
+  }
 } else {
-  set_error('カートの削除に失敗しました。');
+  set_error('不正なCSRFトークンまたは、CSRFトークンがありません。');
 }
 
 redirect_to(CART_URL);

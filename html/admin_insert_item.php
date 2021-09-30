@@ -11,7 +11,6 @@ if(is_logined() === false){
 }
 
 $db = get_db_connect();
-
 $user = get_login_user($db);
 
 if(is_admin($user) === false){
@@ -25,11 +24,17 @@ $stock = get_post('stock');
 
 $image = get_file('image');
 
-if(regist_item($db, $name, $price, $stock, $status, $image)){
-  set_message('商品を登録しました。');
-}else {
-  set_error('商品の登録に失敗しました。');
-}
+$postToken = get_post('csrf_token');
+$validResult = is_valid_csrf_token($postToken);
 
+if ($validResult === true) {
+  if (regist_item($db, $name, $price, $stock, $status, $image)){
+    set_message('商品を登録しました。');
+  }else {
+    set_error('商品の登録に失敗しました。');
+  }
+} else {
+  set_error('不正なCSRFトークンまたは、CSRFトークンがありません。');
+}
 
 redirect_to(ADMIN_URL);
