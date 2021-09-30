@@ -20,7 +20,8 @@ function get_user_by_name($db, $name){
 
 function login_as($db, $name, $password){
   $user = get_user_by_name($db, $name);
-  if($user === false || $user['password'] !== $password){
+
+  if($user === false || password_verify($password, $user['password']) === false){
     return false;
   }
   set_session('user_id', $user['user_id']);
@@ -83,8 +84,10 @@ function is_valid_password($password, $password_confirmation){
 }
 
 function insert_user($db, $name, $password){
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+  
   $sql = 'INSERT INTO users SET name=?, password=?';
-  $params = array($name, $password);
+  $params = array($name, $hashed_password);
 
   return execute_query($db, $sql, $params);
 }
