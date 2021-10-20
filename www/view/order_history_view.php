@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="<?= (STYLESHEET_PATH . ''); ?>">
     </head>
     <body>
+        <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
         <h1>購入履歴</h1>
 
         <?php include VIEW_PATH . 'templates/messages.php'; ?>
@@ -27,9 +28,9 @@
                             <td><?= h($history['created']); ?></td>
                             <td><?= h($history['total']); ?></td>
                             <td>
-                                <form method="post" action="detail.php">
+                                <form method="post" action="order_detail.php">
                                     <input type="submit" value="購入明細表示">
-                                    <input type="hidden" name="order_id" value="<?php h($history['order_id']); ?>">
+                                    <input type="hidden" name="order_id" value="<?= h($history['order_id']); ?>">
                                 </form>
                             </td>
                         </tr>
