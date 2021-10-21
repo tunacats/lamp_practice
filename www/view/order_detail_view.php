@@ -22,19 +22,11 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($histories as $history) { ?>
                     <tr>
-                        <td><?= h($history['order_id']); ?></td>
-                        <td><?= h($history['created']); ?></td>
-                        <td><?= h($history['total']); ?></td>
-                        <td>
-                            <form method="post" action="order_detail.php">
-                                <input type="submit" value="購入明細表示">
-                                <input type="hidden" name="order_id" value="<?= h($history['order_id']); ?>">
-                            </form>
-                        </td>
+                        <td><?= h($selected_history['order_id']); ?></td>
+                        <td><?= h($selected_history['created']); ?></td>
+                        <td><?= h($selected_history['total']); ?></td>
                     </tr>
-                <?php } ?>
             </tbody>
         </table>
 

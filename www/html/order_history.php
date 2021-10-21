@@ -14,7 +14,12 @@
 
     $db = get_db_connect();
     $user = get_login_user($db);
-    $histories = get_order_history($db, $user['user_id']);
+
+    if (is_admin($user)) {
+        $histories = get_all_order_history($db);
+    } else {
+        $histories = get_order_history($db, $user['user_id']);
+    }
 
     $order_id = get_post('order_id');
 
