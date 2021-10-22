@@ -15,19 +15,13 @@
     $db = get_db_connect();
     $user = get_login_user($db);
     $order_id = get_post('order_id');
+
+    if(is_admin($user)){
+        $selected_history = get_selected_order_history_admin($db, $order_id);
+    } else {
+        $selected_history = get_selected_order_history($db, $user['user_id'], $order_id);
+    }
     
-    // ユーザーIDに紐づく購入履歴を全県取得
-    $histories = get_order_history($db, $user['user_id']);
-
-    // order_idのみを$historiesから一旦全件取得
-    $order_idArray = array_column($histories, 'order_id');
-
-    // $order_idが含まれる配列番号を取得
-    $array_number = array_search($order_id, $order_idArray);
-
-    // 購入履歴から指定された配列番号のデータを $selected_historyへ代入
-    $selected_history = $histories[$array_number];
-
     $details = get_order_detail($db, $order_id);   
 
     include_once VIEW_PATH . 'order_detail_view.php';

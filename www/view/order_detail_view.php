@@ -23,9 +23,9 @@
             </thead>
             <tbody>
                     <tr>
-                        <td><?= h($selected_history['order_id']); ?></td>
+                        <td><?= number_format($selected_history['order_id']); ?></td>
                         <td><?= h($selected_history['created']); ?></td>
-                        <td><?= h($selected_history['total']); ?></td>
+                        <td><?= number_format($selected_history['total']); ?></td>
                     </tr>
             </tbody>
         </table>
@@ -43,9 +43,9 @@
                 <?php foreach($details as $detail) { ?>
                     <tr>
                         <td><?= h($detail['name']); ?></td>
-                        <td><?= h($detail['price']); ?></td>
-                        <td><?= h($detail['amount']); ?></td>
-                        <td><?= h($detail['total']); ?></td>
+                        <td><?= number_format($detail['price']); ?></td>
+                        <td><?= number_format($detail['amount']); ?></td>
+                        <td><?= number_format($detail['total']); ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

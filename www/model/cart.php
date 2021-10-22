@@ -57,6 +57,7 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+
   // 購入後にカートの中身を削除し、在庫の変更に加え購入履歴および明細へデータの反映
   $db->beginTransaction();
   
@@ -74,9 +75,7 @@ function purchase_carts($db, $carts){
 
   delete_user_carts($db, $carts[0]['user_id']);
 
-  $error = get_errors();
-
-  if(empty($error)) {
+  if(has_error() === false) {
     $db->commit();
   } else{
     $db->rollback();
