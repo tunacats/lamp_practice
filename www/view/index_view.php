@@ -29,7 +29,7 @@
                 <?php if($item['stock'] > 0){ ?>
                   <form action="index_add_cart.php" method="post">
                     <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
-                    <input type="hidden" name="item_id" value="<?= h($item['item_id']); ?>">
+                    <input type="hidden" name="item_id" value="<?= number_format($item['item_id']); ?>">
                     <input type="hidden" name='csrf_token' value="<?= h($csrf_token); ?>">
                   </form>
                 <?php } else { ?>

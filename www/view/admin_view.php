@@ -70,11 +70,11 @@
               <form method="post" action="admin_change_stock.php">
                 <div class="form-group">
                   <!-- sqlインジェクション確認のためあえてtext -->
-                  <input  type="text" name="stock" value="<?= h($item['stock']); ?>">
+                  <input  type="text" name="stock" value="<?= number_format($item['stock']); ?>">
                   個
                 </div>
                 <input type="submit" value="変更" class="btn btn-secondary">
-                <input type="hidden" name="item_id" value="<?= h($item['item_id']); ?>">
+                <input type="hidden" name="item_id" value="<?= number_format($item['item_id']); ?>">
                 <input type="hidden" name='csrf_token' value="<?= h($csrf_token); ?>">
               </form>
             </td>
@@ -88,13 +88,13 @@
                   <input type="submit" value="非公開 → 公開" class="btn btn-secondary">
                   <input type="hidden" name="changes_to" value="open">
                 <?php } ?>
-                <input type="hidden" name="item_id" value="<?= h($item['item_id']); ?>">
+                <input type="hidden" name="item_id" value="<?= number_format($item['item_id']); ?>">
                 <input type="hidden" name='csrf_token' value="<?= h($csrf_token); ?>">
               </form>
 
               <form method="post" action="admin_delete_item.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
-                <input type="hidden" name="item_id" value="<?= h($item['item_id']); ?>">
+                <input type="hidden" name="item_id" value="<?= number_format($item['item_id']); ?>">
                 <input type="hidden" name='csrf_token' value="<?= h($csrf_token); ?>">
               </form>
 

@@ -32,10 +32,10 @@
             <td><?= (number_format($cart['price'])); ?>円</td>
             <td>
               <form method="post" action="cart_change_amount.php">
-                <input type="number" name="amount" value="<?= h($cart['amount']); ?>">
+                <input type="number" name="amount" value="<?= number_format($cart['amount']); ?>">
                 個
                 <input type="submit" value="変更" class="btn btn-secondary">
-                <input type="hidden" name="cart_id" value="<?= h($cart['cart_id']); ?>">
+                <input type="hidden" name="cart_id" value="<?= number_format($cart['cart_id']); ?>">
                 <input type="hidden" name='csrf_token' value="<?= h($csrf_token); ?>">
               </form>
             </td>
@@ -44,7 +44,7 @@
 
               <form method="post" action="cart_delete_cart.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
-                <input type="hidden" name="cart_id" value="<?= h($cart['cart_id']); ?>">
+                <input type="hidden" name="cart_id" value="<?= number_format($cart['cart_id']); ?>">
                 <input type="hidden" name='csrf_token' value="<?= h($csrf_token); ?>">
               </form>
 
