@@ -22,6 +22,20 @@ function get_items($db, $is_open = false){
   return fetch_all_query($db, $sql);
 }
 
+function get_ranking($db) {
+  $sql = 'SELECT items.name, items.image, items.price,
+          SUM(order_details.amount) AS sales
+          FROM items JOIN order_details
+          ON items.item_id = order_details.item_id
+          GROUP BY order_details.item_id
+          ORDER BY sales DESC LIMIT 3';
+  return fetch_all_query($db, $sql);
+}
+
+function get_items_ranking($db) {
+  return get_ranking($db);
+}
+
 function get_all_items($db){
   return get_items($db);
 }
